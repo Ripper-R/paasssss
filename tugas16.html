@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>filterrr</title>
+    <style>
+        th,td,table{
+            border-collapse: collapse;
+            border : 2px solid black;
+            padding : 12px
+        }
+        
+        form {
+            border: 1px solid black;
+            width: 30%;
+            margin: 1 auto;
+        }
+    </style>
+</head>
+<body>
+    <center>
+<form id='form' onsubmit='add(event)'>
+ <h1>Input  Manusia</h1>   
+Nama : <input type="text" id='nama'> <br><br>
+Usia : <input type="number" id='Usia'> <br><br>
+Gender : <input type="radio" name= "sex" value="Pria">  Pria
+<input type="radio" name= "sex" value="Wanita" >  Wanita
+<br><br>
+Pekerjaan : <input type="text" id='Pekerjaan'> <br><br>
+<button id='submit'>submit</button>
+</form>
+<br>
+<input type="button" onclick="bubblesort('nama')" value='nama' >
+<input type="button" onclick="bubblesort('Usia')" value='Usia'>
+<input type="button" onclick="bubblesort('Kelamin')" value='Kelamin'>
+<input type="button" onclick="bubblesort('Pekerjaan')" value="Pekerjaan">
+<br>
+<table>
+    <tr>
+        <th>NO.</th>
+        <th>Nama</th>
+        <th>Usia</th>
+        <th>Kelamin</th>
+        <th>Pekerjaan</th>
+    </tr>
+    <tbody id='tbo'>
+          
+
+
+
+    </tbody>
+
+</table>
+    </center>
+</body>
+<Script>
+    var arr=[
+    { nama : 'Robin', Usia : 19, Kelamin : 'Pria', Pekerjaan : 'Siswa'},
+    { nama : 'Ere', Usia : 21, Kelamin : 'Pria', Pekerjaan : 'Adventurer'},
+    { nama : 'Elyshia', Usia : 17, Kelamin : 'Wanita', Pekerjaan : 'Sekretaris'},
+]
+
+const tampilanawal=()=>{
+  var output=arr.map((val,index)=>{
+    return (
+            ` <tr>
+                <td>${index+1}</td>
+                <td>${val.nama}</td>
+                <td>${val.Usia}</td>
+                <td>${val.Kelamin}</td>
+                <td>${val.Pekerjaan}</td>
+                    </tr>`
+        )
+})
+document.getElementById('tbo').innerHTML=output.join('')
+}
+const add=(event)=>{
+    event.preventDefault()
+    var Kelamin
+    var a=document.getElementById('nama').value;
+    var b=document.getElementById('Usia').value;
+    var c=document.getElementsByName('sex')
+    if(c[0].checked){
+        Kelamin=c[0].value
+    }else{
+        Kelamin=c[1].value
+    }
+    var d=document.getElementById('Pekerjaan').value;
+    arr.push({nama:a, Usia : b,Kelamin : Kelamin, Pekerjaan:d, })
+    tampilanawal()
+}
+tampilanawal()
+
+const bubblesort=(props)=>{
+    for(let i=arr.length-1;i > 0; i--){
+        for(let j=0;j<i;j++){
+            if(arr[j][props]>arr[j+1][props]){// klo pengen ubah besar kecil pake < ,kalo kecil besar >
+                const temp=arr[j]
+                arr[j]=arr[j+1] 
+                arr[j+1]=temp
+            }
+        }
+    }
+    tampilanawal()
+    console.log(props)
+}
+
+
+</Script>
+</html>
